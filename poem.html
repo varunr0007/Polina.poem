@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #d1d1d1;
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .poem-container {
+            max-width: 600px;
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+        }
+
+        /* Initial state of paragraphs */
+        .poem-container p {
+            opacity: 0;
+            filter: blur(8px);
+            transition: opacity 2s ease-out, filter 2s ease-out;
+        }
+
+        /* Staggered delays */
+        .poem-container p:nth-child(1) { transition-delay: 0.5s; }
+        .poem-container p:nth-child(2) { transition-delay: 2s; }
+        .poem-container p:nth-child(3) { transition-delay: 4.5s; }
+        .poem-container p:nth-child(4) { transition-delay: 7s; }
+
+        /* Revealed state */
+        .poem-container.visible p {
+            opacity: 1;
+            filter: blur(0px);
+        }
+
+        #instruction { font-size: 0.9rem; color: #666; transition: opacity 0.5s; }
+    </style>
+</head>
+<body onclick="reveal()">
+
+    <div id="instruction">Click anywhere to uncover the mystery...</div>
+
+    <div class="poem-container" id="poem">
+        <p>Polina,</p>
+        <p>There is a rare, magnetic beauty in you that feels as timeless as the legends of old. 
+        Your mind is a landscape of shadows and moonlight, always drawn to the stories of 
+        wolves and the secrets of vampires, wandering fearlessly into the dark where 
+        others fear to look.</p>
+        <p>Like a language only the heart can decode, your curiosity is as enchanting as the 
+        mysteries you love to solve. You are the elegant bridge between the world 
+        we see and the hauntingly beautiful unknown.</p>
+        <p style="font-style: italic;">— For the girl who solves every mystery but her own.</p>
+    </div>
+
+    <audio id="music" loop>
+        <source src="https://files.fm/u/pc2qhmv7w9" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function reveal() {
+            document.getElementById('poem').classList.add('visible');
+            document.getElementById('instruction').style.opacity = '0';
+            
+            const music = document.getElementById('music');
+            music.play().catch(e => console.log("Autoplay prevented: " + e));
+        }
+    </script>
+</body>
+</html>
